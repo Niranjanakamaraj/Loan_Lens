@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { toast } from "sonner";
 import ParticleBackground from "@/components/ParticleBackground";
 import HeroSection from "@/components/landing/HeroSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
@@ -8,8 +9,9 @@ import ExplainabilityPanel from "@/components/results/ExplainabilityPanel";
 import GuidancePanel, { defaultRecommendations } from "@/components/results/GuidancePanel";
 import ReportCenter from "@/components/results/ReportCenter";
 import Footer from "@/components/Footer";
+import { loanApi, PredictResponse } from "@/services/loanApi";
 
-// Simulated AI prediction function
+// Fallback simulation function for when API is unavailable
 const simulatePrediction = (data: LoanFormData) => {
   // Base probability calculation
   let probability = 50;
@@ -152,10 +154,26 @@ const simulatePrediction = (data: LoanFormData) => {
 const Index = () => {
   const [currentView, setCurrentView] = useState<"landing" | "form" | "results">("landing");
   const [isLoading, setIsLoading] = useState(false);
-  const [results, setResults] = useState<ReturnType<typeof simulatePrediction> | null>(null);
+  const [results, setResults] = useState<PredictResponse | null>(null);
+  const [apiAvailable, setApiAvailable] = useState<boolean | null>(null);
+  const [formData, setFormData] = useState<LoanFormData | null>(null);
   
   const formRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+
+  // Check API health on mount
+  useEffect(() => {
+    const checkApi = async () => {
+      const isHealthy = await loanApi.checkHealth();
+      setApiAvailable(isHealthy);
+      
+      if (!isHealthy) {
+        console.warn("Backend API is not available. Using simulation mode.");
+      }
+    };
+    
+    checkApi();
+  }, []);
 
   const handleStartAnalysis = () => {
     setCurrentView("form");
@@ -170,19 +188,38 @@ const Index = () => {
   };
 
   const handleFormSubmit = async (data: LoanFormData) => {
+    setFormData(data); // Save form data for reports
     setIsLoading(true);
     
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    
-    const prediction = simulatePrediction(data);
-    setResults(prediction);
-    setIsLoading(false);
-    setCurrentView("results");
-    
-    setTimeout(() => {
-      resultsRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    try {
+      let prediction: PredictResponse;
+
+      if (apiAvailable) {
+        // Use real API
+        try {
+          prediction = await loanApi.predict(data);
+          toast.success("Analysis complete! Powered by XGBoost model.");
+        } catch (error) {
+          console.error("API prediction failed:", error);
+          toast.error("API error. Falling back to simulation mode.");
+          prediction = simulatePrediction(data);
+        }
+      } else {
+        // Use simulation as fallback
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        prediction = simulatePrediction(data);
+        toast.info("Using simulation mode (Backend not available)");
+      }
+
+      setResults(prediction);
+      setCurrentView("results");
+      
+      setTimeout(() => {
+        resultsRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleNewAnalysis = () => {
@@ -286,7 +323,9 @@ const Index = () => {
 
               {/* Report Center */}
               <div className="mt-16">
-                <ReportCenter />
+                {formData && results && (
+                  <ReportCenter formData={formData} predictions={results} />
+                )}
               </div>
             </div>
           </div>

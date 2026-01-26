@@ -206,8 +206,8 @@ const LoanFormPanel = ({ onSubmit, isLoading }: LoanFormPanelProps) => {
                     label="Credit History"
                     checked={formData.creditHistory}
                     onChange={(checked) => updateField("creditHistory", checked)}
-                    activeLabel="Good"
-                    inactiveLabel="Poor"
+                    activeLabel="0"
+                    inactiveLabel="1"
                   />
 
                   <NeonSelect
@@ -236,7 +236,7 @@ const LoanFormPanel = ({ onSubmit, isLoading }: LoanFormPanelProps) => {
                         Analyzing...
                       </span>
                     ) : (
-                      "🔥 RUN AI CREDIT ANALYSIS"
+                      " RUN AI CREDIT ANALYSIS"
                     )}
                   </NeonButton>
                 </div>

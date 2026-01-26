@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <h3 className="font-orbitron text-2xl font-bold gradient-text">
-              NEON CREDIT AI
+              LOAN LENS
             </h3>
             <p className="text-muted-foreground font-rajdhani">
               AI-Powered Loan Approval, Explainability & Smart Guidance System
@@ -50,11 +50,11 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-border/30 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground font-rajdhani">
-            © 2024 NEON CREDIT AI. Predictions are advisory only.
+            LOAN LENS Predictions are advisory only.
           </p>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
-            <span className="text-sm text-neon-green font-rajdhani">AI System Online</span>
+            <span className="text-sm text-neon-green font-rajdhani"></span>
           </div>
         </div>
       </div>

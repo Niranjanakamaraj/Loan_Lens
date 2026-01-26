@@ -10,76 +10,66 @@ interface HeroSectionProps {
 
 const HeroSection = ({ onStartAnalysis, onLearnMore }: HeroSectionProps) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 py-20">
+    <section className="relative min-h-screen px-6 py-20">
       {/* Cyber grid background */}
-      <div className="absolute inset-0 cyber-grid opacity-50" />
+      <div className="absolute inset-0 cyber-grid opacity-100" />
       
       {/* Gradient overlays */}
       <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-neon-blue/10 to-transparent blur-3xl" />
       <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-neon-purple/10 to-transparent blur-3xl" />
 
       <div className="container mx-auto max-w-7xl relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
           {/* Left side - Content */}
-          <div className="space-y-8 animate-slide-up">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5">
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm font-rajdhani text-primary">AI-Powered Credit Analysis</span>
-            </div>
+          <div className="flex flex-col items-center justify-center min-h-screen space-y-8 px-4 text-center">
+  {/* Main heading */}
+  {/* Left side - Content */}
+<div className="flex flex-col items-center space-y-8 px-4 text-center pt-0">
+  {/* Main heading */}
+  <h1 className="text-5xl md:text-7xl font-orbitron font-bold leading-tight">
+    <span className="text-foreground">LOAN </span>
+    <span className="gradient-text">LENS</span>
+  </h1>
 
-            {/* Main heading */}
-            <h1 className="text-5xl md:text-7xl font-orbitron font-bold leading-tight">
-              <span className="gradient-text">NEON</span>
-              <br />
-              <span className="text-foreground">CREDIT</span>
-              <br />
-              <span className="text-primary neon-text-blue">AI</span>
-            </h1>
+  {/* CTA Button */}
+  <div className="flex justify-center pt-4">
+    <NeonButton 
+      variant="filled" 
+      size="lg"
+      onClick={onStartAnalysis}
+      className="group"
+    >
+      Start Loan Analysis
+    </NeonButton>
+  </div>
 
-            {/* Subtitle */}
-            <p className="text-xl md:text-2xl text-foreground/80 font-rajdhani max-w-lg">
-              AI-Powered Loan Approval, Explainability & Smart Guidance System
-            </p>
+  {/* Step-by-step flow */}
+  <div className="flex flex-col space-y-5 font-rajdhani text-2xl">
+    {/* Top step */}
+    <div className="ml-0">
+      <span className="text-neon-green font-medium">SEE</span> the decision
+    </div>
 
-            {/* Features list */}
-            <div className="flex flex-wrap gap-4">
-              <div className="flex items-center gap-2 text-foreground/70">
-                <Brain className="w-5 h-5 text-neon-purple" />
-                <span className="font-rajdhani">Explainable AI</span>
-              </div>
-              <div className="flex items-center gap-2 text-foreground/70">
-                <Shield className="w-5 h-5 text-neon-green" />
-                <span className="font-rajdhani">Transparent Decisions</span>
-              </div>
-            </div>
+    {/* Middle step */}
+    <div className="ml-0">
+      <span className="text-neon-green font-medium">KNOW</span> the reason
+    </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-4 pt-4">
-              <NeonButton 
-                variant="filled" 
-                size="lg"
-                onClick={onStartAnalysis}
-                className="group"
-              >
-                Start Loan Analysis
-                <ArrowRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </NeonButton>
-              <NeonButton 
-                variant="purple" 
-                size="lg"
-                onClick={onLearnMore}
-              >
-                How AI Decides
-              </NeonButton>
-            </div>
-          </div>
+    {/* Bottom step */}
+    <div className="ml-0">
+      <span className="text-neon-green font-medium">PLAN</span> your next move
+    </div>
+  </div>
+</div>
+
+
+</div>
 
           {/* Right side - Floating card */}
           <div className="relative flex justify-center lg:justify-end">
             <GlassCard 
               variant="neon-blue" 
-              className="w-full max-w-md float animate-float"
+              className="w-full max-w-md"
             >
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
