@@ -163,38 +163,38 @@ const LoanFormPanel = ({ onSubmit, isLoading }: LoanFormPanelProps) => {
                   <NeonSlider
                     label="Applicant Income"
                     min={0}
-                    max={50000}
+                    max={5000000}
                     step={500}
                     value={formData.applicantIncome}
                     onChange={(value) => updateField("applicantIncome", value)}
-                    unit="$"
+                    unit=" INR"
                   />
 
                   <NeonSlider
                     label="Co-applicant Income"
                     min={0}
-                    max={30000}
+                    max={5000000}
                     step={500}
                     value={formData.coapplicantIncome}
                     onChange={(value) => updateField("coapplicantIncome", value)}
-                    unit="$"
+                    unit=" INR"
                   />
                 </div>
 
                 <NeonSlider
                   label="Loan Amount"
                   min={10000}
-                  max={700000}
+                  max={7000000}
                   step={5000}
                   value={formData.loanAmount}
                   onChange={(value) => updateField("loanAmount", value)}
-                  unit="$"
+                  unit=" INR"
                 />
 
                 <NeonSlider
                   label="Loan Term"
                   min={12}
-                  max={480}
+                  max={360}
                   step={12}
                   value={formData.loanTerm}
                   onChange={(value) => updateField("loanTerm", value)}

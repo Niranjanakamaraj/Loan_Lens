@@ -15,7 +15,7 @@ const HeroSection = ({ onStartAnalysis, onLearnMore }: HeroSectionProps) => {
       <div className="absolute inset-0 cyber-grid opacity-100" />
       
       {/* Gradient overlays */}
-      <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-neon-blue/10 to-transparent blur-3xl" />
+      <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-radial from-neon-blue to-neongreen" />
       <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-radial from-neon-purple/10 to-transparent blur-3xl" />
 
       <div className="container mx-auto max-w-7xl relative z-10">
